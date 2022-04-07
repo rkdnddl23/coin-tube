@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const LoginContainer = styled.div`
     margin: 0 auto;
-    width: 950px; height:635px;
+    width: 1040px; height:635px;
     box-shadow: 0px 1px 2px 1px #DDDDDD;
     padding: 0px 47px 27px 47px;
 `
@@ -67,7 +67,7 @@ function SignUpPage(){
     return(
         <LoginContainer>
             <LogoDiv/>
-            <div style={{width: "40%", marginRight: "11%", float: "left"}}>
+            <div style={{width: "34%", marginRight: "9%", float: "left"}}>
                 <div style={{paddingTop:"20px"}}>
                     <Text>email</Text>
                     <Input/>
