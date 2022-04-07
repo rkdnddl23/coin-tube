@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from 'qrcode.react';
 import styled from 'styled-components';
+
+import * as KlipAPI from '../../api/UseKlip2';
 
 const LoginContainer = styled.div`
     margin: 0 auto;
@@ -63,6 +65,19 @@ const LoginButton = ({onClick}) => {
 
 function SignUpPage(){
     const [qrvalue, setQrvalue] = useState("DEFAULT_QR_CODE");
+    const [UserAddress, setUserAddress] = useState("0x0000000000000000000000000000000000000000000000000000000000000000");
+    
+    function getUserAddress(){
+        // KlipAPI.getAddress(setQrvalue, async(address) => {
+        //     setUserAddress(address);
+            // console.log(address);
+        // })
+        KlipAPI.getAddress(setQrvalue);
+    }
+
+    useEffect(()=>{
+        getUserAddress();
+    }, [])
 
     return(
         <LoginContainer>
