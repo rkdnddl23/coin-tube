@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import QRCode from 'qrcode.react';
 import styled from 'styled-components';
 
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import * as KlipAPI from '../../api/UseKlip2';
+import { addUser } from "../../commons/firestore";
 
 const LoginContainer = styled.div`
     margin: 0 auto;
@@ -65,7 +67,14 @@ const LoginButton = ({onClick}) => {
 
 function SignUpPage(){
     const [qrvalue, setQrvalue] = useState("DEFAULT_QR_CODE");
-    const [UserAddress, setUserAddress] = useState("0x0000000000000000000000000000000000000000000000000000000000000000");
+    const [UserAddress, setUserAddress] = useState("DEFAULT_USER_ADDRESS");
+
+    const [username, setUsername] = useState("");
+    const [userpassword, setUserpassword] = useState("");
+    const [userpasswordcheck, setUserpasswordcheck] = useState("");
+    const [useremail, setUseremail] = useState("");
+
+    const [isAllEntered, setAllEntered] = useState(false);
     
     function getUserAddress(){
         // KlipAPI.getAddress(setQrvalue, async(address) => {
@@ -73,6 +82,26 @@ function SignUpPage(){
             // console.log(address);
         // })
         KlipAPI.getAddress(setQrvalue);
+    }
+
+    async function LoginHandler(){
+        const auth = getAuth();
+        
+        try{
+            await createUserWithEmailAndPassword(
+                auth,
+                useremail,
+                userpassword).then((response)=>{
+                    addUser(
+                        response.user.uid,
+                        useremail,
+                        username,
+                        UserAddress
+                    )
+                })
+        }catch(error){
+            console.log(error);
+        }
     }
 
     useEffect(()=>{
@@ -85,7 +114,7 @@ function SignUpPage(){
             <div style={{width: "34%", marginRight: "9%", float: "left"}}>
                 <div style={{paddingTop:"20px"}}>
                     <Text>email</Text>
-                    <Input/>
+                    <Input onChange={(e) => setUseremail(e.target.value)}/>
                 </div>
                 <div style={{paddingTop:"20px"}}>
                     <Text>name</Text>
@@ -93,13 +122,13 @@ function SignUpPage(){
                 </div>
                 <div style={{paddingTop:"20px"}}>
                     <Text>password</Text>
-                    <Input type={"password"}/>
+                    <Input type={"password"} onChange={(e) => setUserpassword(e.target.value)}/>
                 </div>
                 <div style={{paddingTop:"20px"}}>
                     <Text>password check</Text>
                     <Input type={"password"}/>
                 </div>
-                <LoginButton/>
+                <LoginButton onClick={LoginHandler}/>
             </div>
             <div style={{float: "left"}}>
                 <Text style={{paddingTop:"20px"}}>klip address</Text>
