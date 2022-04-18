@@ -24,6 +24,13 @@ export async function addUser (uid, useremail, username, useraddress){
 
 export const getUser = async (uid) => {
     const usersCol = query(collection(db, 'users'), where('uid', '==', uid));
-    const res = await getDocs(usersCol);
-    return res;
+    const response = await getDocs(usersCol);
+    return response;
+};
+
+export const findCreators = async (uid) => {
+    const collections = query(collection(db, 'creators'), where('user_id', '==', uid));
+    const response = await getDocs(collections);
+
+    return response;
 };

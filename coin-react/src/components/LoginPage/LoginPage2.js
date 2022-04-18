@@ -144,9 +144,8 @@ function LoginPage2(){
             if(user.size > 0){
                 //로그인 성공
                 let data = user.docs[0];
-                localStorage.setItem('user', data.data());
-                localStorage.setItem('userid', data.data().uid);
-
+                localStorage.setItem('user', JSON.stringify(data.data()));
+                
                 navigate('/');
             }
         //   } else {

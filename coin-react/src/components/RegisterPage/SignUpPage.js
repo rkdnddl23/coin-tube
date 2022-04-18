@@ -100,7 +100,7 @@ function SignUpPage(){
                         useremail,
                         username,
                         UserAddress
-                    ).then(res=> console.log(res))
+                    ).then(res=> console.log(useremail, username))
                 })
         }catch(error){
             console.log(error);
@@ -123,7 +123,7 @@ function SignUpPage(){
                 </div>
                 <div style={{paddingTop:"20px"}}>
                     <Text>name</Text>
-                    <Input/>
+                    <Input onChange={(e) => setUsername(e.target.value)}/>
                 </div>
                 <div style={{paddingTop:"20px"}}>
                     <Text>password</Text>

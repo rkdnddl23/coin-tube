@@ -10,9 +10,14 @@ const Text1 = styled.input.attrs(props => ({
     font-size: 1em;
     border: 1px solid #CCCCCC;
     border-radius: 3px;
-    width: 450px;
+    width: 400px;
     margin: 10px;
     padding: 5px 10px 5px 10px;
+
+    :: placeholder{
+        font-size: 14px;
+        color: #CCCCCC;
+    }
   `;
 
 const Row = styled.text`
@@ -34,7 +39,7 @@ const Font1 = styled.text`
 `
 const Font2 = styled.text`
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     color: #b5b5b5;
 `
 const Font3 = styled.text`
@@ -50,42 +55,43 @@ const Font4 = styled.text`
 `
 const CustomButton = styled.button`
     display: inline-block;
-    color: #b5b5b5;
-    font-size: 1em;
+    background-color: #C4C4C4;
+    color: white;
+    font-size: 14px;
     margin: 1em;
-    padding: 0.25em 1em;
+    margin-top: 2.25em;
+    padding: 0.4em 1.3em;
     border: 2px  #E0E0E0;
     display: block;
 `
 function NotYoutuber(){
+    const Apply = () => (
+       <div>
+           <Row1>
+               <Font1>유튜버 인증 신청이 완료되었습니다.</Font1>
+           </Row1>
+           <Row3>
+               <Font2>심사기간은 1-3일 소요됩니다.(공휴일 제외)</Font2>
+           </Row3>
+       </div>
+    )
+    let youtubeUrl = React.createRef();
+    const NoApply = () => (
+       <div>
+           <Row1>
+               <Font1>Youtube 채널 URL</Font1>
+               <Text1 ref={youtubeUrl} name='youtubeUrl' placeholder="https://www.youtube.com/채널" />
+           </Row1>
+           <Row>
+               <Font2 style={{"marginTop": "-5px"}}>회원가입 정보와 유튜브 계정이 다를 경우 거절될 수 있습니다.</Font2>
+           </Row>
+           <Row3>
+               <CustomButton type="button">유튜버 인증 신청</CustomButton>
+           </Row3>
+       </div>
+    )
     return(<><NoApply/></>)
 }
 
 export default NotYoutuber;
 
-
-const Apply = () => (
-   <div>
-       <Row1>
-           <Font1>유튜버 인증 신청이 완료되었습니다.</Font1>
-       </Row1>
-       <Row3>
-           <Font2>심사기간은 1-3일 소요됩니다.(공휴일 제외)</Font2>
-       </Row3>
-   </div>
-)
-let youtubeUrl = React.createRef();
-const NoApply = () => (
-   <div>
-       <Row1>
-           <Font1>Youtube 채널 URL</Font1>
-           <Text1 ref={youtubeUrl} name='youtubeUrl' placeholder="https://www.youtube.com/채널" />
-       </Row1>
-       <Row>
-           <Font2>회원가입 정보와 유튜브 계정이 다를 경우 거절될 수 있습니다.</Font2>
-       </Row>
-       <Row3>
-           <CustomButton type="button">유튜버 인증 신청</CustomButton>
-       </Row3>
-   </div>
-)

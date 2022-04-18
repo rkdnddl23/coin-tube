@@ -9,7 +9,7 @@ import YoutuberPage from './components/YoutuberPage/YoutuberPage';
 import AdminPage from './components/AdminPage/AdminPage';
 import LoginPage2 from './components/LoginPage/LoginPage2';
 import SignUpPage from './components/RegisterPage/SignUpPage';
-import NotYoutuber from './components/AdminPage/NotYoutuber';
+import YoutuberProfile2 from './components/AdminPage/YoutuberProfile2';
 import * as app from './commons/firebase';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/youtuber" element={<YoutuberPage />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/dev" element={<NotYoutuber />} />
+        <Route path="/dev" element={<YoutuberProfile2 />} />
       </Routes>
     </BrowserRouter>
   );

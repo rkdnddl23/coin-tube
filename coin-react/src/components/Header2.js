@@ -37,7 +37,6 @@ function Header2(){
 
     function logoutHandler(){
         localStorage.removeItem('user');
-        localStorage.removeItem('userid');
         navigate('/');
     }
 

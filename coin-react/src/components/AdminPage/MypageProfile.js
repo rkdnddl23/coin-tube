@@ -32,7 +32,7 @@ const RecentActivityText = styled.text`
 
 function RecentActivity({activityMessage, activityTimeStamp}){
     let returnText = "";
-
+    
     if(activityMessage === "Buy")
         returnText = `${"a"}가 ${"a"} Klay에 판매한 ${"a"}의 뱃지를 구매하였습니다. `;
     else if(activityMessage === "Sale")
@@ -54,6 +54,8 @@ function RecentActivity({activityMessage, activityTimeStamp}){
 }
 
 function MypageProfile(){
+    const user = JSON.parse(localStorage.getItem('user'))
+
     return(
         <div>
             <div>
@@ -64,11 +66,11 @@ function MypageProfile(){
             </div>
             <div>
                 <Font1>wallet address</Font1>
-                <Font2>{"0x123456789abcd123456789abcd123456789abcd"}</Font2>
+                <Font2>{user.useraddress}</Font2>
             </div>
             <div>
                 <Font1>email address</Font1>
-                <Font2>{"username@email.com"}</Font2>
+                <Font2>{user.useremail}</Font2>
             </div>
         </div>
     )

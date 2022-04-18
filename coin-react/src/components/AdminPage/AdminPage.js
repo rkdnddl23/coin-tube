@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import Header2 from '../Header2';
 import MypageProfile from './MypageProfile';
 import MyPageBadges from './MyPageBadges';
-import YoutuberProfile from './YoutuberProfile';
+import YoutuberProfile2 from './YoutuberProfile2';
 // import { getBalance } from "../../api/UseCaver";
 import { getKlipAddress } from '../../commons/firestore';
+import { findCreators } from '../../commons/firestore2';
 import { getAddress } from '../../api/UseKlip';
 
 const TabText = styled.div`
@@ -41,7 +42,7 @@ const Font1 = styled.text`
     color: #b5b5b5;
 `
 
-function SelectToggle(){
+function SelectToggle({isCreator}){
   const [tabState, setTabState] = useState({
     tabProfile: true,
     tabBadge: false,
@@ -99,20 +100,26 @@ function SelectToggle(){
     <InfomationDiv>
       { tabState.tabProfile ? <MypageProfile/> : "" }
       {/******************  컴포넌트 추가 ***********************/}
-      { tabState.tabYoutuber ? <YoutuberProfile/> : "" }
       { tabState.tabBadge ? <MyPageBadges/> : "" }
+      { tabState.tabYoutuber ? <YoutuberProfile2 isCreator={isCreator}/> : "" }
     </InfomationDiv>
     </div>
   )
 }
 
 function AdminPage(){
-  const userId = localStorage.getItem('userid');
-  const userName = "Username";
-  const [myBalance, setMyBalance] = useState("0");
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const getUserData = async() => {
-    const user_data = await getKlipAddress(userId);
+  const [myBalance, setMyBalance] = useState("0");
+  const [isCreator, setIsCreator] = useState(false);
+
+  useEffect(async ()=>{
+      const creator = await findCreators(user.uid);
+      if(creator.size > 0) setIsCreator(true);
+  }, [])
+
+  const getUserAddress = async() => {
+    const user_data = await getKlipAddress(user.uid);
     // const _balance = await getBalance(user_data[0].address);
     // setMyBalance(_balance);
   }
@@ -120,10 +127,10 @@ function AdminPage(){
     <div><Header2 />
       <div style={{paddingLeft: "30px", paddingRight: "30px"}}>
         <div style={{padding: "10px 30px 30px 30px"}}>
-          <Username>{userName}</Username>
+          <Username>{user.username}</Username>
           <Font1>my balance : 01230123</Font1>
         </div>
-        <SelectToggle/>
+        <SelectToggle isCreator={isCreator}/>
         {/* <button onClick={getUserData}>klay 잔고 조회</button> {myBalance} klay */}
       </div>
     </div>
