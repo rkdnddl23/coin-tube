@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 
 import {signInWithEmailAndPassword, getAuth} from 'firebase/auth';
-import { getUser } from '../../commons/firestore';
+import { getUser } from '../../commons/firestore2';
+
+import Header2 from "../Header2";
+import { useNavigate } from "react-router-dom";
 
 const LoginContainer = styled.div`
     margin: 0 auto;
@@ -118,6 +121,8 @@ function OrLine(){
 }
 
 function LoginPage2(){
+    const navigate = useNavigate();
+
     const [email, SetEmail] = useState("");
     const [password, SetPassowrd] = useState("");
 
@@ -134,16 +139,16 @@ function LoginPage2(){
                 password
             );
             setLoading(false);
-            console.log(firebaseUser);
         
-        //   const user = await getUser(firebaseUser.user.uid);
-        //   if (user.size > 0) {
-        //     // 로그인 성공처리
-        //     console.log('로그인 성공', user);
-        //     const data = user.docs[0];
-        //     localStorage.setItem('user', data.data());
-        //     localStorage.setItem('userid', data.data().uid);
-        //     navigate('/');
+            const user = await getUser(firebaseUser.user.uid);
+            if(user.size > 0){
+                //로그인 성공
+                let data = user.docs[0];
+                localStorage.setItem('user', data.data());
+                localStorage.setItem('userid', data.data().uid);
+
+                navigate('/');
+            }
         //   } else {
         //     // 아직 주소 등록 안한 경우 -> 회원가입 처리
         //     navigate(
@@ -161,6 +166,8 @@ function LoginPage2(){
       };
     
     return(
+        <>
+        <Header2/>
         <LoginContainer>
             <LogoDiv/>
             <div style={{padding:"20px 20px 0px 20px"}}>
@@ -173,11 +180,12 @@ function LoginPage2(){
                     <Input type={'password'} onChange={(e) => SetPassowrd(e.target.value)}/>
                 </div>
                 <LoginButton onClick={onSubmit}/>
-                <SignUpButton/>
+                <SignUpButton onClick={()=>navigate('/register')}/>
             </div>
             <OrLine/>
             <WithGoogleButton/>
         </LoginContainer>
+        </>
     )
 }
 

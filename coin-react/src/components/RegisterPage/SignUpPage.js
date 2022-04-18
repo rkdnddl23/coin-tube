@@ -4,7 +4,9 @@ import styled from 'styled-components';
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import * as KlipAPI from '../../api/UseKlip2';
-import { addUser } from "../../commons/firestore";
+import { addUser } from "../../commons/firestore2";
+
+import Header2 from "../Header2";
 
 const LoginContainer = styled.div`
     margin: 0 auto;
@@ -84,6 +86,7 @@ function SignUpPage(){
         KlipAPI.getAddress(setQrvalue);
     }
 
+    //파이어베이스 계정 추가, 데이터 베이스 컬렉션 추가
     async function LoginHandler(){
         const auth = getAuth();
         
@@ -97,7 +100,7 @@ function SignUpPage(){
                         useremail,
                         username,
                         UserAddress
-                    )
+                    ).then(res=> console.log(res))
                 })
         }catch(error){
             console.log(error);
@@ -109,6 +112,8 @@ function SignUpPage(){
     }, [])
 
     return(
+        <>
+        <Header2/>
         <LoginContainer>
             <LogoDiv/>
             <div style={{width: "34%", marginRight: "9%", float: "left"}}>
@@ -136,6 +141,7 @@ function SignUpPage(){
                 <Text style={{fontSize: "14px", color: "#B5B5B5", paddingTop:"5px"}}>QR코드를 촬영하여 Klip 지갑을 연동해주세요.</Text>
             </div>
         </LoginContainer>
+        </>
     )
 }
 

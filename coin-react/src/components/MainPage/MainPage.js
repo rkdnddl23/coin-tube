@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header';
+import Header2 from '../Header2';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import YoutuberCard from './YoutuberCard';
@@ -54,7 +55,7 @@ function MainPage() {
 
   return (
     <div>
-      <Header />
+      <Header2 />
       <CardContainer onScroll={handleScroll}>
         {Youtubers &&
           Youtubers.map((cardinfo) => <YoutuberCard cardinfo={cardinfo} />)}

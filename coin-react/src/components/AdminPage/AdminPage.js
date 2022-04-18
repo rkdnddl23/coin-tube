@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Header from '../Header';
+import Header2 from '../Header2';
 import MypageProfile from './MypageProfile';
 import MyPageBadges from './MyPageBadges';
 import YoutuberProfile from './YoutuberProfile';
@@ -117,14 +117,14 @@ function AdminPage(){
     // setMyBalance(_balance);
   }
   return(
-    <div><Header/>
+    <div><Header2 />
       <div style={{paddingLeft: "30px", paddingRight: "30px"}}>
         <div style={{padding: "10px 30px 30px 30px"}}>
           <Username>{userName}</Username>
-          <Font1>Something</Font1>
+          <Font1>my balance : 01230123</Font1>
         </div>
         <SelectToggle/>
-        <button onClick={getUserData}>klay 잔고 조회</button> {myBalance} klay
+        {/* <button onClick={getUserData}>klay 잔고 조회</button> {myBalance} klay */}
       </div>
     </div>
   )
