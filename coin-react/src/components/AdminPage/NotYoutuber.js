@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Header2 from '../Header2';
 import config from '../../config';
+import { addCreator } from '../../commons/firestore2';
 
 const Text1 = styled.input.attrs(props => ({
     type: "text",
@@ -92,24 +93,48 @@ function NotYoutuber(){
     // }
 
     async function addCreator2(stringUrl){
-        stringUrl = stringUrl.split('/')
-        const username = stringUrl[stringUrl.length -1]
+        const splitedString = stringUrl.split('/');
+        const username = splitedString[splitedString.length -1];
         const {api_key} = config;
         const proxyserver = 'https://cors-anywhere.herokuapp.com/'
         const searchCall = `https://www.googleapis.com/youtube/v3/channels?id=${username}&key=${api_key}&part=snippet,statistics,brandingSettings`;
+        const editUrlSearchCall = `https://www.googleapis.com/youtube/v3/channels?forUsername=${username}&key=${api_key}&part=snippet,statistics,brandingSettings`;
 
-        const creatorInfo = {};
+        const creatorInfo = {
+            channelBanner : "",
+            channeldescription : ""
+        };
 
-        console.log(username);
-        await axios.get(proxyserver+searchCall).then(response => {
-            const data = response.data.items[0];
+        try{
+            await axios.get(proxyserver+searchCall).then(response => {
+            let data = response.data.items[0];
+
             creatorInfo.channelId = username;
+            creatorInfo.channelLink = stringUrl;
             creatorInfo.channelName = data.snippet.title;
             creatorInfo.channelthumbnail = data.snippet.thumbnails.high.url;
             creatorInfo.channeldescription = data.snippet.description;
             creatorInfo.channelBanner = data.brandingSettings.image.bannerExternalUrl;
-            creatorInfo.channelSubscriberCount = data.statistics.subscriberCount;
-        });
+            // creatorInfo.channelSubscriberCount = data.statistics.subscriberCount;
+
+            addCreator(creatorInfo);
+        })}catch(error){
+            if(error instanceof TypeError){
+                await axios.get(proxyserver+editUrlSearchCall).then(response => {
+                    let data = response.data.items[0];
+        
+                    creatorInfo.channelId = username;
+                    creatorInfo.channelLink = stringUrl;
+                    creatorInfo.channelName = data.snippet.title;
+                    creatorInfo.channelthumbnail = data.snippet.thumbnails.high.url;
+                    creatorInfo.channeldescription = data.snippet.description;
+                    creatorInfo.channelBanner = data.brandingSettings.image.bannerExternalUrl;
+                    // creatorInfo.channelSubscriberCount = data.statistics.subscriberCount;
+        
+                    addCreator(creatorInfo);
+                });
+            }
+        }
     }
 
     function youtuberAuthHandler(){
@@ -175,4 +200,3 @@ function NotYoutuber(){
 }
 
 export default NotYoutuber;
-

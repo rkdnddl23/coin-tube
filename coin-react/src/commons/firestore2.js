@@ -1,3 +1,4 @@
+import * as app from './firebase';
 import {
     getFirestore,
     collection,
@@ -34,3 +35,31 @@ export const findCreators = async (uid) => {
 
     return response;
 };
+
+export const addCreator = async (creatorInfo) => {
+    const creatorCollection = collection(db, 'creators');
+
+    const creator = await addDoc(creatorCollection, {
+        channel_id : creatorInfo.channelId,
+        channel_link : creatorInfo.channelLink,
+        channel_name : creatorInfo.channelName,
+        channel_thumbnail : creatorInfo.channelthumbnail,
+        channel_description : creatorInfo.channeldescription,
+        channel_banner : creatorInfo.channelBanner
+    });
+
+    return creator;
+}
+
+export const getCardInfos = async() => {
+    const collections = query(collection(db, 'creators'));
+    const response = await getDocs(collections);
+
+    return response.docs.map((creator) => {
+        return{
+            channelId : creator.data().channel_id,
+            channelBanner : creator.data().channel_banner,
+            channelName : creator.data().channel_name
+        }
+    })
+}

@@ -4,7 +4,7 @@ import Header2 from '../Header2';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import YoutuberCard from './YoutuberCard';
-import { getCreators } from '../../commons/firestore';
+import { getCardInfos, getCreators } from '../../commons/firestore2';
 
 const CardContainer = styled.div`
   display: grid;
@@ -24,7 +24,7 @@ function MainPage() {
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
 
-    console.log(scrollTop);
+    console.log("scrolltop : ", scrollTop);
     if (scrollHeight - scrollTop === clientHeight) {
       setPage((prev) => prev + 1);
     }
@@ -36,7 +36,7 @@ function MainPage() {
 
   useEffect(() => {
     const loadYoutuber = async () => {
-      let newYoutubers = await getCreators();
+      let newYoutubers = await getCardInfos();
 
       const keyword = getQuery().get('search');
       if (keyword && keyword.length > 0) {
@@ -46,10 +46,8 @@ function MainPage() {
       }
 
       setYoutubers(newYoutubers);
-
-      console.log(Youtubers);
     };
-
+    
     loadYoutuber();
   }, [page]);
 

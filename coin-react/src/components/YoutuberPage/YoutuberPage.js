@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import config from "../../config.js";
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from '../Header';
+import Header2 from '../Header2';
 import { getBadges, getMintingInfo, findCreatorsByChannelId } from '../../commons/firestore';
 import BadgeCard from './BadgeCard';
 import ReactDOM from 'react-dom';
@@ -15,6 +15,7 @@ const ImageArea1 = styled.div`
     height: 200px;
     background-repeat: no-repeat;
     display: flex;
+    margin-top: -30px;
 `
 const ImageArea2 = styled.div`
     background-image: url(${props => props.image});
@@ -179,7 +180,7 @@ function YoutuberPage() {
   },[]);
 
   return (
-    <div><Header/>
+    <div><Header2/>
       <ImageArea1 image={channelBanner}></ImageArea1>
       <ImageArea2 image={channelNameThumbnails}></ImageArea2>
       <Row><Font1>{channelName}</Font1></Row>

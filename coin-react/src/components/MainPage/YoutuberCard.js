@@ -58,11 +58,11 @@ const Font1 = styled.text`
 function YoutuberCard({cardinfo}){
     const navigate = useNavigate();
 
-    const youtuberName = cardinfo.name;
-    const channelId = cardinfo.channel_id;
+    const youtuberName = cardinfo.channelName;
+    const channelId = cardinfo.channelId;
     const floorPrice = "0.00";
     const availableBadges = "33";
-    const youtuberImgUrl = cardinfo.image_url;
+    const youtuberImgUrl = cardinfo.channelBanner;
 
 
     // const floorPrice = cardinfo.floor_price;
