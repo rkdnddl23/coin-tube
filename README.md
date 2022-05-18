@@ -18,35 +18,3 @@ https://www.figma.com/file/W1MCemTgQbeWKES0Iu7Qm7/%EC%BD%94%EC%9D%B8%ED%8A%9C%EB
 하지만 노력한 만큼 결과가 나오지못해 아쉬운 마음이듭니다.  
 해커톤은 이렇게 마감했지만 처음 설계한 서비스를 구현할 수 있도록 이어서 개발을 진행할 예정입니다.  
 피드백은 감사히 받겠습니다. 감사합니다.  
-![image](https://user-images.githubusercontent.com/67031388/152645744-00a3925c-6e84-4a6f-9c41-a317c0ceeae3.png)
-<br/><br/>
-## firebase cli 설치하기
-
-```
-npm install -g firebase-tools
-
-firebase login
-```
-
-## 배포하기
-
-상위 리액트 폴더에 들어가서 빌드를 하고
-루트 폴더로 내려와서 firebase deploy를 실행한다
-
-```
-cd coin-react
-npm run build
-
-cd ..
-firebase deploy
-```
-
-
-
-## 2022-02-17
-react-route-dom으로 라우팅 경로 분리
-react-boot-strap 패키지 설치
-```
-
-```
-
