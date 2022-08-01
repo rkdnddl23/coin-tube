@@ -36,10 +36,11 @@ export const findCreators = async (uid) => {
     return response;
 };
 
-export const addCreator = async (creatorInfo) => {
+export const addCreator = async (creatorInfo, user_id) => {
     const creatorCollection = collection(db, 'creators');
 
     const creator = await addDoc(creatorCollection, {
+        user_id : user_id,
         channel_id : creatorInfo.channelId,
         channel_link : creatorInfo.channelLink,
         channel_name : creatorInfo.channelName,

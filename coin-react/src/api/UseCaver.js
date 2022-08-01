@@ -8,6 +8,7 @@ import {
   NFT_CONTRACT_ADDRESS,
   CHAIN_ID,
 } from "../constants";
+
 const option = {
   headers: [
     {

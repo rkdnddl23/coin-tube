@@ -92,11 +92,11 @@ function NotYoutuber(){
     //     console.log('addCreator finish', res);
     // }
 
-    async function addCreator2(stringUrl){
+    async function addCreator2(stringUrl, user_id){
         const splitedString = stringUrl.split('/');
         const username = splitedString[splitedString.length -1];
         const {api_key} = config;
-        const proxyserver = 'https://cors-anywhere.herokuapp.com/'
+        const proxyserver = ''
         const searchCall = `https://www.googleapis.com/youtube/v3/channels?id=${username}&key=${api_key}&part=snippet,statistics,brandingSettings`;
         const editUrlSearchCall = `https://www.googleapis.com/youtube/v3/channels?forUsername=${username}&key=${api_key}&part=snippet,statistics,brandingSettings`;
 
@@ -117,7 +117,7 @@ function NotYoutuber(){
             creatorInfo.channelBanner = data.brandingSettings.image.bannerExternalUrl;
             // creatorInfo.channelSubscriberCount = data.statistics.subscriberCount;
 
-            addCreator(creatorInfo);
+            addCreator(creatorInfo, user_id);
         })}catch(error){
             if(error instanceof TypeError){
                 await axios.get(proxyserver+editUrlSearchCall).then(response => {
@@ -131,7 +131,7 @@ function NotYoutuber(){
                     creatorInfo.channelBanner = data.brandingSettings.image.bannerExternalUrl;
                     // creatorInfo.channelSubscriberCount = data.statistics.subscriberCount;
         
-                    addCreator(creatorInfo);
+                    addCreator(creatorInfo, user_id);
                 });
             }
         }
@@ -147,7 +147,7 @@ function NotYoutuber(){
         else{
             // TODO : 신청 정보 admin 페이지로 보내기
             
-            addCreator2(stringUrl);
+            addCreator2(stringUrl, user.uid);
         }
     }
 

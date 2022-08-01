@@ -10,15 +10,8 @@ const Container = styled.div`
     position: relative;
     margin-left: 10px;
     margin-top:1px;
-`
-const BuyContainer = styled.div`
-    height: 220px; width: 131px;
-    border: 2px solid black;
-    text-align: center;
 
-    position: relative;
-    margin-left: 10px;
-    margin-top:1px;
+    cursor: pointer;
 `
 
 const BadgeImg = styled.img`
@@ -41,20 +34,12 @@ const Font1 = styled.text`
     font-size: 14px;
 `
 
-const BuyButton = styled.div`
-    font-size: 20px; font-weight: bold;
-    width: 100%;
-    background-color: black; color: #FFFFFF;
-    position: absolute; bottom: 0;
-    cursor: pointer;
-`
-
-function Badge(){
+function Badge({setSeletedBadge}){
     const badgeImg = "https://cdn.shopify.com/s/files/1/0514/6332/3817/products/Prefect_Hufflepuff2_grande.png?v=1610030025";
     const userName = "username";
     const badgeSubscriber = "00";
     const badgePrice = "00.0";
-    const badgeBought = true;
+    const badgeBought = false;
 
     // const badgeImg = badgeinfo.youtuber_img_url;
     // const userName = badgeinfo.youtuber_name;
@@ -62,30 +47,25 @@ function Badge(){
     // const badgePrice = badgeinfo.available_badges;
     // const badgeState = badgeinfo.youtuber_img_url;
 
-    const CanBuy =
-        <BuyContainer>
-            <BadgeImg src={badgeImg}/>
-            <TextCotainer>
-                <YouserName>{userName}</YouserName>
-                <Font1>{badgeSubscriber}</Font1>
-                <Font1>{badgePrice} klay</Font1>
-            </TextCotainer>
-            <BuyButton onClick={""}>BUY</BuyButton>
-        </BuyContainer>
+    function CantBuy(){
+        return( 
+            <Container onClick={() => setSeletedBadge('change')}>
+                <BadgeImg src={badgeImg}/>
+                <TextCotainer>
+                    <YouserName>{userName}</YouserName>
+                    <Font1>{badgeSubscriber}</Font1>
+                    <Font1>{badgePrice} klay</Font1>
+                </TextCotainer>
+            </Container>)
+    }
 
-    const CantBuy = 
-        <Container>
-            <BadgeImg src={badgeImg}/>
-            <TextCotainer>
-                <YouserName>{userName}</YouserName>
-                <Font1>{badgeSubscriber}</Font1>
-                <Font1>{badgePrice} klay</Font1>
-            </TextCotainer>
-        </Container>
+    function buttonClickHandler(){
+
+    }
 
     return(
         <div>
-            {badgeBought? CanBuy: CantBuy}
+            <CantBuy/>
         </div>
     )
 }

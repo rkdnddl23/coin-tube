@@ -42,7 +42,7 @@ const Font1 = styled.text`
     color: #b5b5b5;
 `
 
-function SelectToggle({isCreator}){
+function SelectToggle({isCreator, user}){
   const [tabState, setTabState] = useState({
     tabProfile: true,
     tabBadge: false,
@@ -101,7 +101,7 @@ function SelectToggle({isCreator}){
       { tabState.tabProfile ? <MypageProfile/> : "" }
       {/******************  컴포넌트 추가 ***********************/}
       { tabState.tabBadge ? <MyPageBadges/> : "" }
-      { tabState.tabYoutuber ? <YoutuberProfile2 isCreator={isCreator}/> : "" }
+      { tabState.tabYoutuber ? <YoutuberProfile2 isCreator={isCreator} user={user}/> : "" }
     </InfomationDiv>
     </div>
   )
@@ -130,7 +130,7 @@ function AdminPage(){
           <Username>{user.username}</Username>
           <Font1>my balance : 01230123</Font1>
         </div>
-        <SelectToggle isCreator={isCreator}/>
+        <SelectToggle isCreator={isCreator} user={user}/>
         {/* <button onClick={getUserData}>klay 잔고 조회</button> {myBalance} klay */}
       </div>
     </div>

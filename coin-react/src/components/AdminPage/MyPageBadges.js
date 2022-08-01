@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import BadgeHistory from './BadgeHistory';
 import Badge from './Badge';
@@ -48,7 +48,7 @@ const BadgeArea = styled.div`
   margin-bottom: 7%;
 `
 
-function BadgeDetail(){
+function BadgeDetail({seletecBadge}){
     return(
         <div style={{float: "left"}}>
             <BadgeIMG/>
@@ -61,7 +61,7 @@ function BadgeDetail(){
                     <Font1>구매가격</Font1>
                 </FontWrapper>
                 <FontWrapper style={{marginLeft: "25px"}}>
-                    <Font2>{"youtubername"}</Font2>
+                    <Font2>{seletecBadge}</Font2>
                     <Font2>{"1차"}</Font2>
                     <Font2>{"0000 - 00 - 00"}</Font2>
                     <Font2>{"000"}</Font2>
@@ -74,15 +74,19 @@ function BadgeDetail(){
 }
 
 function MyPageBadges(){
+    const [seletecBadge, setSeletedBadge] = useState('initial');
+
+    //TODO : 사용자에 할당된 벳지 모두 가져오기
+
     return(
     <>
         <div style={{borderBottom: "1px solid #cccccc", height: "340px", padding: "30px"}}>
-            <BadgeDetail/>
-            <BadgeHistory/>
+            <BadgeDetail seletecBadge={seletecBadge}/>
+            <BadgeHistory seletecBadge={seletecBadge}/>
         </div>
         <BadgeArea>
             {/* {a && a.map((cardinfo) => <Badge/>)} */}
-            <Badge/>
+            <Badge setSeletedBadge={setSeletedBadge}/>
         </BadgeArea>
     </>)
 }
